@@ -1,0 +1,34 @@
+version: '3.7'
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    ports:
+      - '27017:27017'
+    networks:
+      - netflame
+    volumes:
+      - mongo:/data/db
+  redis:
+    image: redis:5.0.2-alpine3.8
+    container_name: redis
+    restart: always
+    ports:
+      - '6379:6379'
+    networks:
+      - netflame
+    volumes:
+      - redis:/data
+
+networks: 
+  netflame:
+    name: netflame-net
+    driver: bridge
+    attachable: true
+
+volumes:
+  mongo:
+    name: mongo-data
+  redis:
+    name: redis-data
